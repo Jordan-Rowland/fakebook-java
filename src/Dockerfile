@@ -15,4 +15,4 @@ COPY --from=builder /usr/src/fakebook/target/*.jar app.jar
 COPY ./entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["./entrypoint.sh", "java", "-jar", "app.jar"]
+ENTRYPOINT ["./entrypoint.sh", "java", "-jar", "/app/app.jar"]
