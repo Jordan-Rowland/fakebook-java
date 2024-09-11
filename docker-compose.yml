@@ -1,27 +1,22 @@
 services:
   app:
-    restart:
-      on-failure
-    # healthcheck:  # Needs a healthcheck
-    #   test: []
-    #   interval: 5s
-    #   timeout: 1s
-    #   retries: 2
-    #   start_period: 10s
+    restart: on-failure
+    healthcheck:
+      interval: 5s
+      timeout: 1s
+      retries: 2
+      start_period: 10s
     build:
       context: .
       dockerfile: src/Dockerfile
     ports:
       - "8080:8080"
-    depends_on:  # Once healthcheck is in place, remove this
-      - db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/fakebook-java?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: pass
 
   db:
-    # image: mysql:latest
     build:
       context: .
       dockerfile: db/Dockerfile
